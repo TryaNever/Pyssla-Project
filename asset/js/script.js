@@ -29,6 +29,13 @@ function Pyssla() {
             containColorSwitch.prepend(pNewColor)
         }
         colorSwitch = document.querySelectorAll('.color-choose')
+        colorSwitch.forEach(el => {
+            el.addEventListener('click', function() {
+                grille.colorSelect = el.style.backgroundColor
+                console.log(grille.colorSelect);
+            })
+        });
+        
     }
     this.newColor = function () {
         this.arrColorSpawn.push(inputColor.value)
@@ -50,10 +57,20 @@ pAddColor.addEventListener('click', function () {
     formNewColor.classList.remove('none')
 })
 
-formNewColor.addEventListener('submit', function(e) {
+inputColor.addEventListener('change', function(e) {
     e.preventDefault()
     grille.newColor()
     formNewColor.classList.add('none')
 })
 
+
+
 grille.createChangeColor()
+
+colorSwitch.forEach(el => {
+    el.addEventListener('click', function() {
+        grille.colorSelect = el.style.backgroundColor
+        console.log(grille.colorSelect);
+    })
+});
+console.log("test");
