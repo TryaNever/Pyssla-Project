@@ -6,16 +6,17 @@ const inputColor = document.querySelector('input[type="color"]')
 const resetGrilleButton = document.querySelector('.fa-arrows-rotate')
 let colorSwitch = document.querySelectorAll('.color-choose')
 const containGrille = document.querySelector('.contain-grille')
+const couleurSelect = document.querySelector('.couleur-select')
 
 
 
 function Pyssla() {
-    this.colorSelect = "blue";
+    this.colorSelect = "white";
     this.arrColorSpawn = ["black", "white", "purple", "green", "blue", "yellow", "orange"]
     this.arrColorNameSpawn = ["black", "white", "purple", "green", "blue", "yellow", "orange"]
     this.nameColor = "";
-    this.rowGrille = 20
-    this.columnGrille = 20
+    this.rowGrille = 24
+    this.columnGrille = 24
 
 
     this.createGrille = function () {
@@ -27,10 +28,13 @@ function Pyssla() {
             });
         }
         for (let i = 0; i < this.rowGrille; i++) {
+            let rowContain = document.createElement('div')
+            rowContain.classList.add('row-container')
+            containGrille.append(rowContain)
             for (let u = 0; u < this.columnGrille; u++) {
                 let pysslaCase = document.createElement('div')
                 pysslaCase.classList.add('case-color')
-                containGrille.append(pysslaCase)
+                rowContain.appendChild(pysslaCase)
             }
         }
         selectAllDiv = document.querySelectorAll('.case-color')
@@ -94,6 +98,8 @@ grille.createChangeColor()
 colorSwitch.forEach(el => {
     el.addEventListener('click', function () {
         grille.colorSelect = el.style.backgroundColor
+        couleurSelect.style.backgroundColor = el.style.backgroundColor
+        
     })
 });
 
@@ -103,6 +109,6 @@ resetGrilleButton.addEventListener('click', function () {
 })
 
 
-grille.rowGrille = prompt('nombre de ligne -_-')
-grille.columnGrille = prompt('nombre de colone -_-')
+// grille.rowGrille = prompt('nombre de ligne -_-')
+// grille.columnGrille = prompt('nombre de colone -_-')
 grille.createGrille()

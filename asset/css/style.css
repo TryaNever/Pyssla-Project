@@ -11,7 +11,7 @@ h1 {
     display: none;
 }
 
-form {
+form:first-of-type {
     width: 80px;
     height: 120px;
     margin: 8px 0;
@@ -48,18 +48,24 @@ main {
 
 .contain-grille {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 60vh;
-    height: 60vh;
+    min-width: 60vh;
+    min-height: 60vh;
+    max-width: 80vh;
+    max-height: 80vh;
     padding: 1vh;
-    border: 2PX black solid;
+    border: 2px black solid;
+    overflow:hidden;
 }
 
 .case-color {
-    width: 4%;
-    height: 4%;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    margin: 0.5%;
+    margin: 2px;
     outline: 0.01vh solid black;
 }
 
@@ -100,4 +106,31 @@ main {
     display: flex;
     width: 40%;
     justify-content: space-evenly;
+}
+
+.row-container {
+    display: flex;
+    align-items: center;
+}
+
+.couleur-select {
+    width: 200px;
+    height: 40px;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+
+.import-export {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border: 2px solid black;
+    height: 400px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    margin-top: 24px;
 }
