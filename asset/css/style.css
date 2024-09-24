@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+
+
 h1 {
     margin: 0;
 }
@@ -38,6 +43,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "Open Sans", sans-serif;
 }
 
 .contain-grille {
@@ -66,10 +72,12 @@ main {
 .color-choose {
     width: 15vw;
     height: 32px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
     outline: 2px solid black;
     border-radius: 6px;
-    font-size: 0px;
+    font-size: 20px;
     margin: 8px;
+    text-align: center;
 }
 
 .color-add {
@@ -80,4 +88,16 @@ main {
     margin: 8px;
     text-align: center;
     font-size: 28px;
+}
+
+.contain-action {
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.zoom-grille {
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly;
 }
