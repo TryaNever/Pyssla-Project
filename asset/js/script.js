@@ -7,6 +7,10 @@ const resetGrilleButton = document.querySelector('.fa-arrows-rotate')
 let colorSwitch = document.querySelectorAll('.color-choose')
 const containGrille = document.querySelector('.contain-grille')
 const couleurSelect = document.querySelector('.couleur-select')
+const copyButton = document.querySelector('.import-export button')
+const containDataButton = document.querySelector('.contain-data')
+let dataLocalStorage = []
+
 
 
 
@@ -17,6 +21,7 @@ function Pyssla() {
     this.nameColor = "";
     this.rowGrille = 24
     this.columnGrille = 24
+    this.firstPassing = false
 
 
     this.createGrille = function () {
@@ -24,7 +29,7 @@ function Pyssla() {
             selectAllDiv.forEach(el => {
                 el.remove()
                 console.log('test');
-                
+
             });
         }
         for (let i = 0; i < this.rowGrille; i++) {
@@ -42,7 +47,7 @@ function Pyssla() {
             selectAllDiv[i].addEventListener('click', function () {
                 grille.changeColor(selectAllDiv[i])
             })
-        
+
         }
     }
 
@@ -74,7 +79,57 @@ function Pyssla() {
         this.arrColorSpawn.push(inputColor.value)
         this.createChangeColor()
     }
-}
+
+    this.copyClipBoard = async function () {
+        let copyData = document.querySelector(".case-color");
+        copyData = Array.from(copyData).map(node => {
+            let bgColor = window.getComputedStyle(node).backgroundColor;
+            let classes = node.className;
+    
+            return {
+                backgroundColor: bgColor,
+                className: classes,
+                outerHTML: node.outerHTML
+            };
+        });
+    
+        console.log(copyData);
+    
+        // Stocker tous les objets dans un seul item dans le localStorage
+        localStorage.setItem(`caseColors${localStorage.length += 1}`, JSON.stringify(copyData));
+    };
+    this.recupNewData = function() {
+        if (this.firstPassing) {
+            buttonContainData.forEach(el => {
+                el.remove()
+            });
+        }
+        this.firstPassing = true
+        dataLocalStorage = []
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);      
+            let value = localStorage.getItem(key);
+            dataLocalStorage.push(JSON.parse(value))
+            let buttonNewData = document.createElement('button')
+            buttonNewData.textContent = key;
+            containDataButton.append(buttonNewData)
+          }
+        
+          let buttonContainData = document.querySelectorAll('.contain-data button')
+          console.log(dataLocalStorage);
+          
+        
+          buttonContainData.forEach(dom => {
+            dom.addEventListener('click', function(e) {
+                e.preventDefault()
+                selectAllDiv.forEach(el => {
+                    el.remove()
+                });
+              })
+          });
+        
+    }
+}    
 
 const grille = new Pyssla()
 
@@ -99,7 +154,7 @@ colorSwitch.forEach(el => {
     el.addEventListener('click', function () {
         grille.colorSelect = el.style.backgroundColor
         couleurSelect.style.backgroundColor = el.style.backgroundColor
-        
+
     })
 });
 
@@ -112,3 +167,12 @@ resetGrilleButton.addEventListener('click', function () {
 // grille.rowGrille = prompt('nombre de ligne -_-')
 // grille.columnGrille = prompt('nombre de colone -_-')
 grille.createGrille()
+
+copyButton.addEventListener('click', function (e) {
+    e.preventDefault()
+    grille.copyClipBoard()
+    grille.recupNewData()
+})
+
+
+grille.recupNewData()
